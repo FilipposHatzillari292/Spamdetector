@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spam Message Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <section class="card">
+            <h1>Spam Message Detector</h1>
+            <p class="subtitle">
+                Enter an SMS message and the AI model will predict whether it is Spam or Ham.
+            </p>
+
+            <form method="POST">
+                <label for="message">SMS Message</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="7"
+                    placeholder="Example: Congratulations! You won a free prize..."
+                    required>{{ message }}</textarea>
+
+                <button type="submit">Check Message</button>
+            </form>
+
+            {% if prediction %}
+                <div class="result">
+                    <h2>Prediction Result</h2>
+                    <p class="prediction">{{ prediction }}</p>
+
+                    {% if confidence %}
+                        <p class="confidence">Confidence: {{ confidence }}%</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="info">
+            <h2>How it works</h2>
+            <p>
+                The application uses a trained Machine Learning classification model.
+                The text message is converted into numerical features using CountVectorizer.
+                Then, the Naive Bayes model predicts whether the message is spam or ham.
+            </p>
+        </section>
+    </main>
+</body>
+</html>
